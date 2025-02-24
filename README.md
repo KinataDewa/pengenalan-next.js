@@ -1,40 +1,171 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
 
-## Getting Started
+## Kinata Dewa Ariandi <br> TI 3C <br> 2241720087
 
-First, run the development server:
+### Langkah 1
+1. Pastikan Node.js dan npm sudah terinstal di komputer Anda. Anda dapat memeriksanya dengan menjalankan perintah berikut di terminal atau command prompt:
+![alt text](image.png)
+2. Buat direktori baru untuk proyek Next.js Anda
+-   sudah
+3. Inisialisasi proyek Next.js dengan menjalankan perintah berikut: Perhatikan bahwa App Router belum digunakan
+![alt text](image-1.png)
+4. Jalankan aplikasi Next.js dengan perintah:
+![alt text](image-2.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+### Langkah 2
+```jsx
+import React from "react";
+
+const HomePage = () => {
+  return (
+    <div>
+      <h1>Selamat datang di  Website Saya!</h1>
+      <p>Ini adalah Halaman utama.</p>
+    </div>
+  );
+};
+
+export default HomePage;
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Hasil : 
+![alt text](image-3.png)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+---
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Langkah 3
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+```jsx
+import React from "react";
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+const Blog = ({ post }) => {
+    return (
+        <div>
+            <h1>Blog Saya</h1>
+            {post.map((post) => (
+                <div key={post.id}>
+                    <h2>{post.title}</h2>
+                    <p>{post.body}</p>
+                </div>
+            ))}
+        </div>
+    );
+};
 
-## Learn More
+export async function getStaticProps() {
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+    const post = await res.json();
 
-To learn more about Next.js, take a look at the following resources:
+    return {
+        props: { post }, 
+    };
+}
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+export default Blog;
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
 
-## Deploy on Vercel
+Hasil : 
+![alt text](image-5.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
+### Langkah 4
+```jsx
+import { useRouter } from "next/router";
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+const BlogPost = () => {
+    const router = useRouter();
+    const { slug } = router.query;
+
+    return (
+        <div>
+            <h1>Blog Post: {slug}</h1>
+            <p>Ini adalah blog post dengan slug {slug}.</p>
+        </div>
+    );
+};
+
+export default BlogPost;
+```
+
+Hasil : 
+![alt text](image-6.png)
+
+---
+### Langkah 5
+
+```jsx
+import { useState, useEffect } from "react";
+
+const ProductList = () => {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const response = await fetch('/api/products');
+            const products = await response.json();
+            setProducts(products);
+        };
+
+        fetchProducts();
+    }, []);
+
+    return (
+        <div>
+            <h1>Daftar Produk</h1>
+            <ul>
+                {products.map((products) => (
+                    <li key={products.id}>{products.title}</li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+export default ProductList;
+```
+Hasil : 
+![alt text](image-7.png)
+
+---
+### Langkah 6
+Index.js : 
+```jsx
+import Link from "next/link";
+
+const HomePage = () => {
+  return (
+    <div>
+      <h1>Selamat datang di  Website Saya!</h1>
+      <p>Ini adalah Halaman utama.</p>
+      <Link href='/about'>
+        Tentang Kami
+      </Link>
+    </div>
+  );
+};
+
+export default HomePage;
+```
+
+Hasil : 
+![alt text](image-8.png)
+
+About.js : 
+```jsx
+const AboutPage = () => {
+    return (
+        <div>
+            <h1>Tentang Kami</h1>
+            <p>Kami adalah perusahaan yang mengkhususkan diri dalam pembuatan website berkualitas tinggi.</p>
+        </div>
+    );
+};
+
+export default AboutPage;
+```
+
+Hasil : 
+![alt text](image-9.png)
