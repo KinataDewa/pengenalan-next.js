@@ -169,3 +169,13 @@ export default AboutPage;
 
 Hasil : 
 ![alt text](image-9.png)
+
+---
+### Tugas
+1. Hasil : 
+![alt text](image-10.png)
+
+2. Hasil : 
+![alt text](image-11.png)
+
+3. Hasil : 
